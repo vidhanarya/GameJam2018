@@ -5,38 +5,59 @@ using UnityEngine;
 public class characterScript : MonoBehaviour {
     
     //variables to be logged
-    float hInput, vInput;
+    float hInput;
     public bool onGround;
     private Rigidbody rb;
     public float jumpSpeed = 5f;
     public float moveSpeed = 3f;
+    Animation animation;
     //public Material chMaterial;
 	
     // Use this for initialization
 	void Start () {
-        print("Yo, I am the character");
         onGround = true;
         rb = GetComponent<Rigidbody>();
-        //chMaterial = GetComponent<Renderer>().material;
+        animation = GetComponent<Animation>();
+        animation.Play("Idle");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        hInput = Input.GetAxis("Horizontal");
-        //vInput = Input.GetAxis("Vertical");
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown("d")) { transform.Rotate(0, -90, 0, Space.World); }
+        if (Input.GetKey("d"))
+        {
+            rb.velocity = new Vector3(-moveSpeed, rb.velocity.y, 0f);
+            animation.Play("Run");
+        }
+        if (Input.GetKeyUp("d"))
+        {
+            rb.velocity = new Vector3(0f, 0f, 0f);
+            animation.Play("Idle");
+            transform.Rotate(0, +90, 0, Space.World);
+        }
+        if (Input.GetKeyDown("a")) { transform.Rotate(0, 90, 0, Space.World); }
+        if (Input.GetKey("a"))
+        {
+            rb.velocity = new Vector3(moveSpeed, rb.velocity.y, 0f);
+            animation.Play("Run");
+        }
+        if (Input.GetKeyUp("a"))
+        {
+            rb.velocity = new Vector3(0f, 0f, 0f);
+            animation.Play("Idle");
+            transform.Rotate(0, -90, 0, Space.World);
+        }
         if (onGround)
         {
             if (Input.GetKeyDown("space"))
             {
-                rb.velocity = new Vector3(0f,jumpSpeed,0f);
+                rb.velocity += new Vector3(0f, jumpSpeed, 0f);
                 onGround = false;
             }
 
         }
-        transform.Translate(hInput * Time.deltaTime*moveSpeed, 0f, 0f);
-        //transform.Translate(0f, vInput * Time.deltaTime*moveSpeed, 0f);
-	}
-
+     }
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("platform"))
@@ -44,9 +65,5 @@ public class characterScript : MonoBehaviour {
             onGround = true;
         }
     }
-    
-    //void onDestroy()
-    //{
-    //   Destroy(chMaterial);
-    //}
+   
 }
