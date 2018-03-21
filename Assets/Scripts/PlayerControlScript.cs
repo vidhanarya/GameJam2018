@@ -33,13 +33,14 @@ public class PlayerControlScript : MonoBehaviour {
         {
             if (Input.GetKeyDown("space"))
             {
-                rb.velocity = new Vector3(0f, jumpSpeed, 0f);
+                rb.velocity += new Vector3(0f, jumpSpeed, 0f);
                 onGround = false;
             }
 
         }
 
     }
+    void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
         if (count >= 12)
