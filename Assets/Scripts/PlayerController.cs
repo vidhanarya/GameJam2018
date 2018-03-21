@@ -11,12 +11,17 @@ public class PlayerController : MonoBehaviour {
 	public Text countText;
 	public Text winText;
 
+	public AudioClip Rise03;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody> ();
 		count = 0;
 		SetCountText ();
 		winText.text=" ";
+
+		GetComponent<AudioSource>().playOnAwake = false;
+		GetComponent<AudioSource>().clip = Rise03;
 	}
 
 	void FixedUpdate() //Before any physics operation
@@ -35,6 +40,8 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.SetActive(false);
 			count = count + 1;
 			SetCountText ();
+
+			GetComponent<AudioSource>().Play();
 		}
 	}
 
