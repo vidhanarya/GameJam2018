@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44659412, g: 0.49642998, b: 0.57482475, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657928, g: 0.4964131, b: 0.5748174, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1012,7 +1012,7 @@ GameObject:
   - component: {fileID: 1468318633}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1160,13 +1160,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1536036268}
-  m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: -0.267, y: 10, z: -10}
+  m_LocalRotation: {x: -0.09295847, y: -0, z: -0, w: 0.99566996}
+  m_LocalPosition: {x: -0.267, y: 0.38, z: -6.85}
   m_LocalScale: {x: 1, y: 1, z: 0.9999999}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -10.668, y: 0, z: 0}
 --- !u!114 &1536036273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1425,6 +1425,7 @@ GameObject:
   - component: {fileID: 1679528388}
   - component: {fileID: 1679528387}
   - component: {fileID: 1679528386}
+  - component: {fileID: 1679528392}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1438,12 +1439,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1679528385}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e1c06bdbc10449cfa4b9fa64aaf70ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 10
   countText: {fileID: 464727104}
   winText: {fileID: 1145574277}
 --- !u!54 &1679528387
@@ -1527,6 +1528,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1679528392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1679528385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff71c76646845c4ba18f3a959028920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onGround: 0
+  jumpSpeed: 5
+  speed: 5
+  countText: {fileID: 464727104}
+  winText: {fileID: 1145574277}
 --- !u!4 &1690860297 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4924376973893868, guid: a74ecfd6aefd745a2a70f1bd1267c8e3,
