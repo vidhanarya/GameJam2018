@@ -80,7 +80,12 @@ public class characterScript : MonoBehaviour {
 		{
 			//count_blue = count_blue - 1;
 			if (count_blue > 0) {
-				create (new Vector3 (transform.position.x + 1, transform.position.y, transform.position.z));
+				if (transform.position.x > 6.64) {
+					create (new Vector3 (transform.position.x + 1, transform.position.y+0.4f, transform.position.z));
+				} 
+				else {
+					create (new Vector3 (transform.position.x - 1, transform.position.y+0.4f, transform.position.z));
+				}
 			}
 
 		}
