@@ -118,9 +118,9 @@ public class characterScript : MonoBehaviour {
         {
             yield return null; 
         }
-        InstanceObj.AddComponent<MeshCollider>();
+        InstanceObj.AddComponent<BoxCollider>();
         yield return new WaitForSeconds(1f);
-        InstanceObj.GetComponent<MeshCollider>().isTrigger = true;
+        InstanceObj.GetComponent<BoxCollider>().isTrigger = true;
         print("collider enabled");
     }
 }
