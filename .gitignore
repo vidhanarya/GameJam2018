@@ -23,8 +23,10 @@ ExportedObj/
 *.svd
 *.pdb
 
+
 # Unity3D generated meta files
 *.pidb.meta
+*.prefab.meta
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
@@ -33,3 +35,6 @@ sysinfo.txt
 *.apk
 *.unitypackage
 .collabignore
+ProjectSettings\ProjectSettings.asset
+ProjectSettings\ProjectVersion.txt
+*.meta
