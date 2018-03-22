@@ -2558,6 +2558,7 @@ MonoBehaviour:
   onGround: 0
   jumpSpeed: 5
   moveSpeed: 3
+  reactivate: 30
   rightKeyCode: d
   leftKeyCode: a
   jumpKeyCode: space
@@ -5514,6 +5515,7 @@ MonoBehaviour:
   onGround: 0
   jumpSpeed: 5
   moveSpeed: 3
+  reactivate: 0
   rightKeyCode: l
   leftKeyCode: j
   jumpKeyCode: i
@@ -8032,7 +8034,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1057202307}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &1057202309
 Behaviour:
   m_ObjectHideFlags: 0
@@ -8459,6 +8461,16 @@ Prefab:
     - target: {fileID: 1693666085742054, guid: a74ecfd6aefd745a2a70f1bd1267c8e3, type: 2}
       propertyPath: m_Name
       value: pickup_red (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 65734033970166004, guid: a74ecfd6aefd745a2a70f1bd1267c8e3,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65734033970166004, guid: a74ecfd6aefd745a2a70f1bd1267c8e3,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a74ecfd6aefd745a2a70f1bd1267c8e3, type: 2}
@@ -12049,7 +12061,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1594009778}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &1594009780
 Behaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class characterScript : MonoBehaviour {
     private Rigidbody rb;
     public float jumpSpeed = 5f;
     public float moveSpeed = 3f;
+    public float reactivate;
 
     public string rightKeyCode = "d";
     public string leftKeyCode = "a";
@@ -20,7 +21,7 @@ public class characterScript : MonoBehaviour {
 
     Animation chAnimation;
     RaycastHit hit;
-	public GameObject obj;
+	public GameObject obj,InstanceObj;
     //public Material chMaterial;
 	
     // Use this for initialization
@@ -30,6 +31,7 @@ public class characterScript : MonoBehaviour {
         chAnimation = GetComponent<Animation>();
         chAnimation.Play("Idle");
         Physics.IgnoreLayerCollision(playerLayer, playerWallLayer);
+        Destroy(obj.GetComponent<Collider>());
     }
 
     // Update is called once per frame
@@ -78,14 +80,8 @@ public class characterScript : MonoBehaviour {
 
         if (Input.GetKeyDown("p"))
 		{
-			//count_blue = count_blue - 1;
 			if (count_blue > 0) {
-				if (transform.position.x > 6.64) {
-					create (new Vector3 (transform.position.x + 1, transform.position.y+0.4f, transform.position.z));
-				} 
-				else {
-					create (new Vector3 (transform.position.x - 1, transform.position.y+0.4f, transform.position.z));
-				}
+				create (new Vector3 (transform.position.x, transform.position.y+0.4f, transform.position.z));
 			}
 
 		}
@@ -102,6 +98,7 @@ public class characterScript : MonoBehaviour {
 			//SetCountText ();
 		}
 		if (other.gameObject.CompareTag ("pickup_blue")) {
+            print("collide with blue pickup");
 			other.gameObject.SetActive(false);
 			count_blue = count_blue + 1;
 			//SetCountText ();
@@ -109,8 +106,21 @@ public class characterScript : MonoBehaviour {
 		}
 	void create(Vector3 m)
 	{
-		Instantiate (obj, m, Quaternion.identity); 
-		obj.SetActive (true);
-		count_blue = count_blue - 1;
+        StartCoroutine(spawnPickup_blue(m));
 	}
+    IEnumerator spawnPickup_blue(Vector3 m)
+    {
+        InstanceObj = Instantiate(obj, m, Quaternion.identity);
+        count_blue = count_blue - 1;
+        InstanceObj.SetActive(true);
+        print("entered the activate numerator");
+        for(float f = reactivate; f > 0; f -= 0.1f)
+        {
+            yield return null; 
+        }
+        InstanceObj.AddComponent<BoxCollider>();
+        yield return new WaitForSeconds(1f);
+        InstanceObj.GetComponent<BoxCollider>().isTrigger = true;
+        print("collider enabled");
+    }
 }
