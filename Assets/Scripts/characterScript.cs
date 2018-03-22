@@ -7,10 +7,13 @@ public class characterScript : MonoBehaviour {
     //variables to be logged
     float hInput;
     public bool onGround;
+	private int count_red;
+	private int count_blue;
     private Rigidbody rb;
     public float jumpSpeed = 5f;
     public float moveSpeed = 3f;
     Animation animation;
+	public GameObject obj;
     //public Material chMaterial;
 	
     // Use this for initialization
@@ -57,6 +60,15 @@ public class characterScript : MonoBehaviour {
             }
 
         }
+
+		if(Input.GetKeyDown("p"))
+		{
+			//count_blue = count_blue - 1;
+			if (count_blue > 0) {
+				create (new Vector3 (transform.position.x + 1, transform.position.y, transform.position.z));
+			}
+
+		}
      }
     void OnCollisionEnter(Collision other)
     {
@@ -65,5 +77,27 @@ public class characterScript : MonoBehaviour {
             onGround = true;
         }
     }
-   
+	void OnTriggerEnter(Collider other)
+	{
+		if (count_red + count_blue >= 4) {
+			return;
+		}
+
+		if (other.gameObject.CompareTag ("pickup_red")) {
+			other.gameObject.SetActive(false);
+			count_red = count_red + 1;
+			//SetCountText ();
+		}
+		if (other.gameObject.CompareTag ("pickup_blue")) {
+			other.gameObject.SetActive(false);
+			count_blue = count_blue + 1;
+			//SetCountText ();
+		}
+		}
+	void create(Vector3 m)
+	{
+		Instantiate (obj, m, Quaternion.identity); 
+		obj.SetActive (true);
+		count_blue = count_blue - 1;
+	}
 }
