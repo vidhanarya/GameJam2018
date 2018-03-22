@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class characterScript : MonoBehaviour {
     
@@ -13,6 +14,11 @@ public class characterScript : MonoBehaviour {
     public float jumpSpeed = 5f;
     public float moveSpeed = 3f;
     public float reactivate;
+	public string color;
+
+	public Text countText1;
+	public Text countText2;
+	public Text winText;
 
     public string rightKeyCode = "d";
     public string leftKeyCode = "a";
@@ -32,6 +38,8 @@ public class characterScript : MonoBehaviour {
         chAnimation.Play("Idle");
         Physics.IgnoreLayerCollision(playerLayer, playerWallLayer);
         Destroy(obj.GetComponent<Collider>());
+		SetCountText ();
+		winText.text=" ";
     }
 
     // Update is called once per frame
@@ -78,12 +86,20 @@ public class characterScript : MonoBehaviour {
         }
 
 
-        if (Input.GetKeyDown("p"))
-		{
-			if (count_blue > 0) {
-				create (new Vector3 (transform.position.x, transform.position.y+0.4f, transform.position.z));
+		if (Input.GetKeyDown ("p")) {
+			if (color == "red") {
+				if (count_blue > 0) {
+					create (new Vector3 (transform.position.x, transform.position.y + 0.4f, transform.position.z));
+				}
+
 			}
 
+			if (color == "blue") {
+				if (count_red > 0) {
+					create (new Vector3 (transform.position.x, transform.position.y + 0.4f, transform.position.z));
+				}
+
+			}
 		}
      }
 	void OnTriggerEnter(Collider other)
@@ -95,23 +111,28 @@ public class characterScript : MonoBehaviour {
 		if (other.gameObject.CompareTag ("pickup_red")) {
 			other.gameObject.SetActive(false);
 			count_red = count_red + 1;
-			//SetCountText ();
+			SetCountText ();
 		}
 		if (other.gameObject.CompareTag ("pickup_blue")) {
             print("collide with blue pickup");
 			other.gameObject.SetActive(false);
 			count_blue = count_blue + 1;
-			//SetCountText ();
+			SetCountText ();
 		}
 		}
 	void create(Vector3 m)
 	{
-        StartCoroutine(spawnPickup_blue(m));
+        StartCoroutine(spawnPickup(m));
 	}
-    IEnumerator spawnPickup_blue(Vector3 m)
+    IEnumerator spawnPickup(Vector3 m)
     {
         InstanceObj = Instantiate(obj, m, Quaternion.identity);
-        count_blue = count_blue - 1;
+		if (color == "red") {
+			count_blue = count_blue - 1;
+		}
+		if (color == "blue") {
+			count_blue = count_red - 1;
+		}
         InstanceObj.SetActive(true);
         print("entered the activate numerator");
         for(float f = reactivate; f > 0; f -= 0.1f)
@@ -123,4 +144,20 @@ public class characterScript : MonoBehaviour {
         InstanceObj.GetComponent<BoxCollider>().isTrigger = true;
         print("collider enabled");
     }
+
+	void SetCountText()
+	{
+		countText1.text = "Count_red: " + count_red.ToString ();
+		countText2.text = "Count_blue: " + count_blue.ToString ();
+		if (color == "red") {
+			if (count_red >= 4) {
+				winText.text = "Red Wins";
+			}
+		}
+		if (color == "blue") {
+			if (count_blue >= 4) {
+				winText.text = "Blue Wins";
+			}
+		}
+	}
 }
