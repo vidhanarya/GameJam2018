@@ -35,6 +35,7 @@ sysinfo.txt
 *.apk
 *.unitypackage
 .collabignore
-ProjectSettings\ProjectSettings.asset
 ProjectSettings\ProjectVersion.txt
+
 *.meta
+*.asset
