@@ -9,6 +9,10 @@ TagManager:
   - wall
   - pickup_blue
   - pickup_red
+  - Player1Wall
+  - Player2Wall
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX
@@ -18,10 +22,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Player1Wall
+  - Player2Wall
+  - Player1
+  - Player2
   - 
   - 
   - 

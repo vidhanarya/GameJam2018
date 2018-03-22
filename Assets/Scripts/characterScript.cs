@@ -12,7 +12,14 @@ public class characterScript : MonoBehaviour {
     private Rigidbody rb;
     public float jumpSpeed = 5f;
     public float moveSpeed = 3f;
-    Animation animation;
+
+    public string rightKeyCode = "d";
+    public string leftKeyCode = "a";
+    public string jumpKeyCode = "space";
+    public int playerWallLayer, playerLayer;
+
+    Animation chAnimation;
+    RaycastHit hit;
 	public GameObject obj;
     //public Material chMaterial;
 	
@@ -20,48 +27,56 @@ public class characterScript : MonoBehaviour {
 	void Start () {
         onGround = true;
         rb = GetComponent<Rigidbody>();
-        animation = GetComponent<Animation>();
-        animation.Play("Idle");
-	}
+        chAnimation = GetComponent<Animation>();
+        chAnimation.Play("Idle");
+        Physics.IgnoreLayerCollision(playerLayer, playerWallLayer);
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("d")) { transform.Rotate(0, -90, 0, Space.World); }
-        if (Input.GetKey("d"))
+        if (Input.GetKeyDown(rightKeyCode)) { transform.Rotate(0, -90, 0, Space.World); }
+        if (Input.GetKey(rightKeyCode))
         {
             rb.velocity = new Vector3(-moveSpeed, rb.velocity.y, 0f);
-            animation.Play("Run");
+            chAnimation.Play("Run");
         }
-        if (Input.GetKeyUp("d"))
+        if (Input.GetKeyUp(rightKeyCode))
         {
             rb.velocity = new Vector3(0f, 0f, 0f);
-            animation.Play("Idle");
+            chAnimation.Play("Idle");
             transform.Rotate(0, +90, 0, Space.World);
         }
-        if (Input.GetKeyDown("a")) { transform.Rotate(0, 90, 0, Space.World); }
-        if (Input.GetKey("a"))
+        if (Input.GetKeyDown(leftKeyCode)) { transform.Rotate(0, 90, 0, Space.World); }
+        if (Input.GetKey(leftKeyCode))
         {
             rb.velocity = new Vector3(moveSpeed, rb.velocity.y, 0f);
-            animation.Play("Run");
+            chAnimation.Play("Run");
         }
-        if (Input.GetKeyUp("a"))
+        if (Input.GetKeyUp(leftKeyCode))
         {
             rb.velocity = new Vector3(0f, 0f, 0f);
-            animation.Play("Idle");
+            chAnimation.Play("Idle");
             transform.Rotate(0, -90, 0, Space.World);
         }
+
+        Vector3 down = transform.TransformDirection(Vector3.down);
+
+        if (Physics.Raycast(transform.position, down, out hit, 0.205f)) { onGround = true; }
+        else onGround = false;
+        //print("There is something in front of the object!");
+
         if (onGround)
         {
-            if (Input.GetKeyDown("space"))
+            if (Input.GetKeyDown(jumpKeyCode))
             {
                 rb.velocity += new Vector3(0f, jumpSpeed, 0f);
                 onGround = false;
             }
-
         }
 
-		if(Input.GetKeyDown("p"))
+
+        if (Input.GetKeyDown("p"))
 		{
 			//count_blue = count_blue - 1;
 			if (count_blue > 0) {
@@ -70,13 +85,6 @@ public class characterScript : MonoBehaviour {
 
 		}
      }
-    void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("platform"))
-        {
-            onGround = true;
-        }
-    }
 	void OnTriggerEnter(Collider other)
 	{
 		if (count_red + count_blue >= 4) {
