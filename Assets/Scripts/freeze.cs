@@ -5,7 +5,6 @@ using UnityEngine;
 public class freeze : MonoBehaviour {
 
     public float freezeTime;
-    public Color originalColor;
 
 	// Use this for initialization
 	void Start () {
@@ -18,12 +17,10 @@ public class freeze : MonoBehaviour {
     }
     void OnTriggerEnter(Collider other)
     {
-        originalColor = other.gameObject.GetComponent<Renderer>().material.color;
         print("triggered");
         if (other.gameObject.CompareTag("Player"))
         {
             print("Collision with character");
-            other.gameObject.GetComponent<Renderer>().material.color = Color.red;
             Destroy(gameObject.gameObject.GetComponent<Mesh>());
             Destroy(other.gameObject.GetComponent<characterScript>());
             StartCoroutine(Freeze(other,freezeTime));
@@ -40,7 +37,6 @@ public class freeze : MonoBehaviour {
         }
         
         other.gameObject.AddComponent<characterScript>();
-        other.gameObject.GetComponent<Renderer>().material.color = originalColor;
         print("script added");
         Destroy(gameObject);
     }
